@@ -1,7 +1,6 @@
-#https://tatianashamshurina.github.io/Resume_Tatsiana_Website/
+ #https://tatianashamshurina.github.io/Resume_Tatsiana_Website/
 
 import time
-
 import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -26,8 +25,11 @@ for h2 in sections_h2:
     if h2 in sections_h2:
         print(h2.text)
 print("*************************************************")
-#chercher_image = driver.find_element(By.TAG_NAME,"img")
-#print(chercher_image)
+chercher_image = driver.find_elements(By.TAG_NAME,"img")
+for img in chercher_image:
+    if img in chercher_image:
+        print(img.text)
+print("Il y a ",len(chercher_image)," image sur la page.")
 print("------------------------------------------------------")
 list_links = driver.find_elements(By.TAG_NAME,"a")      #on cherche le liste des liens qui commencent par a
 print("Le nombre des liens sur cette page est: ", len(list_links))
@@ -59,10 +61,12 @@ for link in list_links:
         #comment valider si li lien brise ou non
     if reponse.status_code>=400:
         print(url, " le lien est brisé")
+        print(url," , Status code est: ", reponse.status_code)
         compteur_liens_brises = compteur_liens_brises + 1
     else:
         #print(url, " le link est Valide")
         compteur_liens_valides = compteur_liens_valides + 1
+        print(url, " , Status code est: ",reponse.status_code)
 print("Le nombre des liens brisés: ", compteur_liens_brises)
 print("Le nombre des liens valides: ", compteur_liens_valides)
 
@@ -74,26 +78,21 @@ print("URL of page to download Resume: ",url_of_page_download_resume)
 print("------------------------------------------------------")
 #driver.switch_to.default_content()
 driver.forward()
-#driver.forward()
 time.sleep(5)
 el_title = driver.find_element(By.XPATH,"//h2[normalize-space()='Software Test Engineer']")
 print(el_title.text)
-print("-------------------------------------------------------")
-#skills = driver.find_element(By.XPATH,"//h3[normalize-space()='Skills & Qualifications']").text
-#print(skills)
-#print("-------------------------------------------------------")
+print("----------- Skills --------------------------------------------")
 
 my_skills = driver.find_elements(By.XPATH,"//ul[@id='qualifications--list']//li")
+for skill in my_skills:
+    if skill in my_skills:
+        print(skill.text)
 
-for el in range(len(my_skills)):
-    if el in my_skills:
-        print(el.text)
-    #my_skills_list = []
-    #my_skills_list=my_skills_list.append(el)
-#print(my_skills_list)
+print("----------- My Projects --------------------------------------------")
 
-        with io.open("file.txt", 'w') as file:
-            file.write(el)
-print("-------------------------------------------------------")
+my_projects_list = driver.find_elements(By.XPATH,"//ul[@id='projects--list']//li")
+for project in my_projects_list:
+    if project in my_projects_list:
+        print(project.text)
 
 time.sleep(4)
